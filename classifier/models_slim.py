@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
-from classifier.classifier import detect_lang, process_text
-
+from classifier.utils import detect_lang, process_text
 
 Base = declarative_base()
 
@@ -25,10 +24,21 @@ class Post(Base):
 
 class Token(Base):
     __tablename__ = "tokens"
+
+    def __init__(self, token: str):
+        self.token = token
+
     token = Column(String(), primary_key=True)
 
 
 class Source(Base):
     __tablename__ = "sources"
-    domain = Column(Integer, primary_key=True)
+
+    def __init__(self, *args: str):
+        self.domain, self.class_ = args
+
+    def to_dict(self):
+        return {"domain": self.domain, "class": self.class_}
+
+    domain = Column(String(), primary_key=True)
     class_ = Column(String())

@@ -1,24 +1,21 @@
+from pathlib import Path
 from typing import Dict, Optional
-from dataclasses import dataclass, field
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+from classifier.models_slim import Base, Post, Source, Token
 
 Sources = Optional[Dict[str, str]]
 
 
-def detect_lang(text: str) -> str:
-    return ""
-
-
-def process_text(text: str) -> str:
-    return ""
-
-
-@dataclass
 class Classifier:
-    sources: Sources
-    _sources: Sources = field(init=False, repr=False)
-
-    def __init__(self, sources: Sources = None) -> None:
-        self.sources = sources
+    def __init__(self, db: Path) -> None:
+        engine = create_engine("sqlite://{}".format(db))
+        Session = sessionmaker()
+        Session.configure(bind=engine)
+        self.db = Session()
+        Base.metadata.create_all(engine)
 
     def fill(self) -> dict:
         return {}
@@ -40,13 +37,20 @@ class Classifier:
     def tokens(self):
         return None
 
-    @property  # mypy: ignore
+    @property
     def sources(self) -> Sources:
-        return self._sources
+        sources = self.db.query(Source).all()
+        return {x.source: x.class_ for x in sources}
 
     @sources.setter
     def sources(self, sources: Sources) -> None:
         if sources:
-            self._sources = dict(sources)
+            for source, class_ in sources.items():
+                record = Source(source, class_)
+                self.db.merge(record)
         else:
-            self._sources = {}
+            self.db.query(Source).delete()
+        try:
+            self.db.commit()
+        except:
+            self.db.rollback()

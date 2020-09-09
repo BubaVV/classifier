@@ -1,10 +1,11 @@
 # type: ignore
-from sqlalchemy import Column, Integer, String, DateTime, MetaData
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.dialects.postgresql import JSONB
 import datetime
 import enum
 from collections import defaultdict
+
+from sqlalchemy import Column, DateTime, Integer, MetaData, String
+from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.ext.declarative import declarative_base
 
 SCHEMA = "classifier"
 

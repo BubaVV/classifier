@@ -1,11 +1,12 @@
 from itertools import cycle
+from typing import Generator, Tuple
+
+import h5py
 import numpy
-from sklearn.feature_extraction.text import HashingVectorizer
 from keras.layers import Dense, Dropout
 from keras.models import Sequential
-import h5py
 from keras.utils import plot_model
-from typing import Generator, Tuple
+from sklearn.feature_extraction.text import HashingVectorizer
 
 from classifier.settings import DIFF_WORDS
 
