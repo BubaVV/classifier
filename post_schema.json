@@ -1,0 +1,1732 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"type": "array",
+	"items": {
+		"type": "object",
+		"properties": {
+			"id": {
+				"type": "integer"
+			},
+			"from_id": {
+				"type": "integer"
+			},
+			"owner_id": {
+				"type": "integer"
+			},
+			"date": {
+				"type": "integer"
+			},
+			"marked_as_ads": {
+				"type": "integer"
+			},
+			"post_type": {
+				"type": "string"
+			},
+			"text": {
+				"type": "string"
+			},
+			"attachments": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string"
+						},
+						"photo": {
+							"type": "object",
+							"properties": {
+								"album_id": {
+									"type": "integer"
+								},
+								"date": {
+									"type": "integer"
+								},
+								"id": {
+									"type": "integer"
+								},
+								"owner_id": {
+									"type": "integer"
+								},
+								"has_tags": {
+									"type": "boolean"
+								},
+								"access_key": {
+									"type": "string"
+								},
+								"post_id": {
+									"type": "integer"
+								},
+								"sizes": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"height": {
+												"type": "integer"
+											},
+											"url": {
+												"type": "string"
+											},
+											"type": {
+												"type": "string"
+											},
+											"width": {
+												"type": "integer"
+											}
+										},
+										"required": ["height", "type", "url", "width"]
+									}
+								},
+								"text": {
+									"type": "string"
+								},
+								"user_id": {
+									"type": "integer"
+								},
+								"lat": {
+									"type": "number"
+								},
+								"long": {
+									"type": "number"
+								}
+							},
+							"required": ["album_id", "date", "has_tags", "id", "owner_id", "sizes", "text"]
+						},
+						"poll": {
+							"type": "object",
+							"properties": {
+								"anonymous": {
+									"type": "boolean"
+								},
+								"multiple": {
+									"type": "boolean"
+								},
+								"end_date": {
+									"type": "integer"
+								},
+								"closed": {
+									"type": "boolean"
+								},
+								"is_board": {
+									"type": "boolean"
+								},
+								"can_edit": {
+									"type": "boolean"
+								},
+								"can_vote": {
+									"type": "boolean"
+								},
+								"can_report": {
+									"type": "boolean"
+								},
+								"can_share": {
+									"type": "boolean"
+								},
+								"created": {
+									"type": "integer"
+								},
+								"id": {
+									"type": "integer"
+								},
+								"owner_id": {
+									"type": "integer"
+								},
+								"question": {
+									"type": "string"
+								},
+								"votes": {
+									"type": "integer"
+								},
+								"disable_unvote": {
+									"type": "boolean"
+								},
+								"friends": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "integer"
+											}
+										},
+										"required": ["id"]
+									}
+								},
+								"answer_ids": {
+									"type": "array"
+								},
+								"answers": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "integer"
+											},
+											"rate": {
+												"type": "number"
+											},
+											"text": {
+												"type": "string"
+											},
+											"votes": {
+												"type": "integer"
+											}
+										},
+										"required": ["id", "rate", "text", "votes"]
+									}
+								},
+								"author_id": {
+									"type": "integer"
+								},
+								"background": {
+									"type": "object",
+									"properties": {
+										"angle": {
+											"type": "integer"
+										},
+										"color": {
+											"type": "string"
+										},
+										"id": {
+											"type": "integer"
+										},
+										"name": {
+											"type": "string"
+										},
+										"points": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"color": {
+														"type": "string"
+													},
+													"position": {
+														"type": "number"
+													}
+												},
+												"required": ["color", "position"]
+											}
+										},
+										"type": {
+											"type": "string"
+										}
+									},
+									"required": ["angle", "color", "id", "name", "points", "type"]
+								},
+								"photo": {
+									"type": "object",
+									"properties": {
+										"color": {
+											"type": "string"
+										},
+										"id": {
+											"type": "integer"
+										},
+										"images": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"height": {
+														"type": "integer"
+													},
+													"url": {
+														"type": "string"
+													},
+													"width": {
+														"type": "integer"
+													}
+												},
+												"required": ["height", "url", "width"]
+											}
+										}
+									},
+									"required": ["color", "id", "images"]
+								}
+							},
+							"required": ["anonymous", "answer_ids", "answers", "can_edit", "can_report", "can_share", "can_vote", "closed", "created", "disable_unvote", "end_date", "id", "is_board", "multiple", "owner_id", "question", "votes"]
+						},
+						"video": {
+							"type": "object",
+							"properties": {
+								"access_key": {
+									"type": "string"
+								},
+								"can_comment": {
+									"type": "integer"
+								},
+								"can_like": {
+									"type": "integer"
+								},
+								"can_repost": {
+									"type": "integer"
+								},
+								"can_subscribe": {
+									"type": "integer"
+								},
+								"can_add_to_faves": {
+									"type": "integer"
+								},
+								"can_add": {
+									"type": "integer"
+								},
+								"comments": {
+									"type": "integer"
+								},
+								"date": {
+									"type": "integer"
+								},
+								"description": {
+									"type": "string"
+								},
+								"duration": {
+									"type": "integer"
+								},
+								"photo_130": {
+									"type": "string"
+								},
+								"photo_320": {
+									"type": "string"
+								},
+								"photo_800": {
+									"type": "string"
+								},
+								"photo_1280": {
+									"type": "string"
+								},
+								"first_frame_130": {
+									"type": "string"
+								},
+								"first_frame_160": {
+									"type": "string"
+								},
+								"first_frame_320": {
+									"type": "string"
+								},
+								"first_frame_800": {
+									"type": "string"
+								},
+								"first_frame_1280": {
+									"type": "string"
+								},
+								"width": {
+									"type": "integer"
+								},
+								"height": {
+									"type": "integer"
+								},
+								"id": {
+									"type": "integer"
+								},
+								"owner_id": {
+									"type": "integer"
+								},
+								"title": {
+									"type": "string"
+								},
+								"is_favorite": {
+									"type": "boolean"
+								},
+								"track_code": {
+									"type": "string"
+								},
+								"views": {
+									"type": "integer"
+								},
+								"restriction": {
+									"type": "object",
+									"properties": {
+										"title": {
+											"type": "string"
+										},
+										"text": {
+											"type": "string"
+										},
+										"always_shown": {
+											"type": "integer"
+										},
+										"blur": {
+											"type": "integer"
+										},
+										"can_play": {
+											"type": "integer"
+										},
+										"can_preview": {
+											"type": "integer"
+										},
+										"card_icon": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"height": {
+														"type": "integer"
+													},
+													"url": {
+														"type": "string"
+													},
+													"width": {
+														"type": "integer"
+													}
+												},
+												"required": ["height", "url", "width"]
+											}
+										},
+										"list_icon": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"height": {
+														"type": "integer"
+													},
+													"url": {
+														"type": "string"
+													},
+													"width": {
+														"type": "integer"
+													}
+												},
+												"required": ["height", "url", "width"]
+											}
+										}
+									},
+									"required": ["always_shown", "blur", "can_play", "can_preview", "card_icon", "list_icon", "text", "title"]
+								},
+								"content_restricted": {
+									"type": "integer"
+								},
+								"photo_640": {
+									"type": "string"
+								},
+								"local_views": {
+									"type": "integer"
+								},
+								"platform": {
+									"type": "string"
+								},
+								"user_id": {
+									"type": "integer"
+								},
+								"repeat": {
+									"type": "integer"
+								},
+								"content_restricted_message": {
+									"type": "string"
+								},
+								"album_id": {
+									"type": "integer"
+								},
+								"is_private": {
+									"type": "integer"
+								},
+								"ov_id": {
+									"type": "string"
+								}
+							},
+							"required": ["access_key", "can_add", "can_add_to_faves", "can_comment", "can_like", "can_repost", "can_subscribe", "date", "duration", "id", "is_favorite", "owner_id", "photo_130", "photo_320", "title", "track_code", "views"]
+						},
+						"audio": {
+							"type": "object",
+							"properties": {
+								"artist": {
+									"type": "string"
+								},
+								"id": {
+									"type": "integer"
+								},
+								"owner_id": {
+									"type": "integer"
+								},
+								"title": {
+									"type": "string"
+								},
+								"duration": {
+									"type": "integer"
+								},
+								"is_explicit": {
+									"type": "boolean"
+								},
+								"url": {
+									"type": "string"
+								},
+								"date": {
+									"type": "integer"
+								},
+								"album_id": {
+									"type": "integer"
+								},
+								"is_hq": {
+									"type": "boolean"
+								},
+								"short_videos_allowed": {
+									"type": "boolean"
+								},
+								"stories_allowed": {
+									"type": "boolean"
+								},
+								"stories_cover_allowed": {
+									"type": "boolean"
+								},
+								"lyrics_id": {
+									"type": "integer"
+								},
+								"genre_id": {
+									"type": "integer"
+								},
+								"content_restricted": {
+									"type": "integer"
+								},
+								"no_search": {
+									"type": "integer"
+								},
+								"main_artists": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"name": {
+												"type": "string"
+											},
+											"domain": {
+												"type": "string"
+											},
+											"id": {
+												"type": "string"
+											}
+										},
+										"required": ["domain", "id", "name"]
+									}
+								},
+								"subtitle": {
+									"type": "string"
+								},
+								"featured_artists": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"name": {
+												"type": "string"
+											},
+											"domain": {
+												"type": "string"
+											},
+											"id": {
+												"type": "string"
+											}
+										},
+										"required": ["domain", "id", "name"]
+									}
+								}
+							},
+							"required": ["artist", "date", "duration", "id", "is_explicit", "is_hq", "owner_id", "short_videos_allowed", "stories_allowed", "stories_cover_allowed", "title", "url"]
+						},
+						"link": {
+							"type": "object",
+							"properties": {
+								"url": {
+									"type": "string"
+								},
+								"title": {
+									"type": "string"
+								},
+								"caption": {
+									"type": "string"
+								},
+								"description": {
+									"type": "string"
+								},
+								"photo": {
+									"type": "object",
+									"properties": {
+										"album_id": {
+											"type": "integer"
+										},
+										"date": {
+											"type": "integer"
+										},
+										"id": {
+											"type": "integer"
+										},
+										"owner_id": {
+											"type": "integer"
+										},
+										"has_tags": {
+											"type": "boolean"
+										},
+										"sizes": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"height": {
+														"type": "integer"
+													},
+													"url": {
+														"type": "string"
+													},
+													"type": {
+														"type": "string"
+													},
+													"width": {
+														"type": "integer"
+													}
+												},
+												"required": ["height", "type", "url", "width"]
+											}
+										},
+										"text": {
+											"type": "string"
+										},
+										"user_id": {
+											"type": "integer"
+										}
+									},
+									"required": ["album_id", "date", "has_tags", "id", "owner_id", "sizes", "text"]
+								},
+								"is_favorite": {
+									"type": "boolean"
+								},
+								"target": {
+									"type": "string"
+								},
+								"button": {
+									"type": "object",
+									"properties": {
+										"title": {
+											"type": "string"
+										},
+										"action": {
+											"type": "object",
+											"properties": {
+												"type": {
+													"type": "string"
+												},
+												"url": {
+													"type": "string"
+												}
+											},
+											"required": ["type", "url"]
+										}
+									},
+									"required": ["action", "title"]
+								},
+								"button_text": {
+									"type": "string"
+								},
+								"button_action": {
+									"type": "string"
+								},
+								"preview_article": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "integer"
+										},
+										"owner_id": {
+											"type": "integer"
+										},
+										"owner_name": {
+											"type": "string"
+										},
+										"owner_photo": {
+											"type": "string"
+										},
+										"state": {
+											"type": "string"
+										},
+										"can_report": {
+											"type": "boolean"
+										},
+										"title": {
+											"type": "string"
+										},
+										"subtitle": {
+											"type": "string"
+										},
+										"views": {
+											"type": "integer"
+										},
+										"shares": {
+											"type": "integer"
+										},
+										"is_favorite": {
+											"type": "boolean"
+										},
+										"url": {
+											"type": "string"
+										},
+										"view_url": {
+											"type": "string"
+										},
+										"no_footer": {
+											"type": "boolean"
+										},
+										"access_key": {
+											"type": "string"
+										},
+										"published_date": {
+											"type": "integer"
+										}
+									},
+									"required": ["access_key", "can_report", "id", "is_favorite", "no_footer", "owner_id", "owner_name", "owner_photo", "published_date", "shares", "state", "subtitle", "title", "url", "view_url", "views"]
+								}
+							},
+							"required": ["description", "title", "url"]
+						},
+						"doc": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "integer"
+								},
+								"owner_id": {
+									"type": "integer"
+								},
+								"title": {
+									"type": "string"
+								},
+								"size": {
+									"type": "integer"
+								},
+								"ext": {
+									"type": "string"
+								},
+								"date": {
+									"type": "integer"
+								},
+								"type": {
+									"type": "integer"
+								},
+								"url": {
+									"type": "string"
+								},
+								"preview": {
+									"type": "object",
+									"properties": {
+										"photo": {
+											"type": "object",
+											"properties": {
+												"sizes": {
+													"type": "array",
+													"items": {
+														"type": "object",
+														"properties": {
+															"src": {
+																"type": "string"
+															},
+															"width": {
+																"type": "integer"
+															},
+															"height": {
+																"type": "integer"
+															},
+															"type": {
+																"type": "string"
+															}
+														},
+														"required": ["height", "src", "type", "width"]
+													}
+												}
+											},
+											"required": ["sizes"]
+										},
+										"video": {
+											"type": "object",
+											"properties": {
+												"src": {
+													"type": "string"
+												},
+												"width": {
+													"type": "integer"
+												},
+												"height": {
+													"type": "integer"
+												},
+												"file_size": {
+													"type": "integer"
+												}
+											},
+											"required": ["file_size", "height", "src", "width"]
+										}
+									},
+									"required": ["photo"]
+								},
+								"access_key": {
+									"type": "string"
+								}
+							},
+							"required": ["access_key", "date", "ext", "id", "owner_id", "size", "title", "type", "url"]
+						},
+						"curator": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "integer"
+								},
+								"name": {
+									"type": "string"
+								},
+								"description": {
+									"type": "string"
+								},
+								"url": {
+									"type": "string"
+								},
+								"photo": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"height": {
+												"type": "integer"
+											},
+											"url": {
+												"type": "string"
+											},
+											"width": {
+												"type": "integer"
+											}
+										},
+										"required": ["height", "url", "width"]
+									}
+								}
+							},
+							"required": ["description", "id", "name", "photo", "url"]
+						},
+						"page": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "integer"
+								},
+								"group_id": {
+									"type": "integer"
+								},
+								"title": {
+									"type": "string"
+								},
+								"who_can_view": {
+									"type": "integer"
+								},
+								"who_can_edit": {
+									"type": "integer"
+								},
+								"edited": {
+									"type": "integer"
+								},
+								"created": {
+									"type": "integer"
+								},
+								"views": {
+									"type": "integer"
+								},
+								"view_url": {
+									"type": "string"
+								}
+							},
+							"required": ["created", "edited", "group_id", "id", "title", "view_url", "views", "who_can_edit", "who_can_view"]
+						},
+						"album": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "string"
+								},
+								"thumb": {
+									"type": "object",
+									"properties": {
+										"album_id": {
+											"type": "integer"
+										},
+										"date": {
+											"type": "integer"
+										},
+										"id": {
+											"type": "integer"
+										},
+										"owner_id": {
+											"type": "integer"
+										},
+										"has_tags": {
+											"type": "boolean"
+										},
+										"sizes": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"height": {
+														"type": "integer"
+													},
+													"url": {
+														"type": "string"
+													},
+													"type": {
+														"type": "string"
+													},
+													"width": {
+														"type": "integer"
+													}
+												},
+												"required": ["height", "type", "url", "width"]
+											}
+										},
+										"text": {
+											"type": "string"
+										},
+										"access_key": {
+											"type": "string"
+										},
+										"user_id": {
+											"type": "integer"
+										}
+									},
+									"required": ["album_id", "date", "has_tags", "id", "owner_id", "sizes", "text"]
+								},
+								"owner_id": {
+									"type": "integer"
+								},
+								"title": {
+									"type": "string"
+								},
+								"description": {
+									"type": "string"
+								},
+								"created": {
+									"type": "integer"
+								},
+								"updated": {
+									"type": "integer"
+								},
+								"size": {
+									"type": "integer"
+								}
+							},
+							"required": ["created", "description", "id", "owner_id", "size", "thumb", "title", "updated"]
+						}
+					},
+					"required": ["type"]
+				}
+			},
+			"post_source": {
+				"type": "object",
+				"properties": {
+					"type": {
+						"type": "string"
+					},
+					"platform": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": ["type"]
+			},
+			"comments": {
+				"type": "object",
+				"properties": {
+					"count": {
+						"type": "integer"
+					},
+					"can_post": {
+						"type": "integer"
+					},
+					"groups_can_post": {
+						"type": "boolean"
+					}
+				},
+				"required": ["can_post", "count"]
+			},
+			"likes": {
+				"type": "object",
+				"properties": {
+					"count": {
+						"type": "integer"
+					},
+					"user_likes": {
+						"type": "integer"
+					},
+					"can_like": {
+						"type": "integer"
+					},
+					"can_publish": {
+						"type": "integer"
+					}
+				},
+				"required": ["can_like", "can_publish", "count", "user_likes"]
+			},
+			"reposts": {
+				"type": "object",
+				"properties": {
+					"count": {
+						"type": "integer"
+					},
+					"user_reposted": {
+						"type": "integer"
+					}
+				},
+				"required": ["count", "user_reposted"]
+			},
+			"views": {
+				"type": "object",
+				"properties": {
+					"count": {
+						"type": "integer"
+					}
+				},
+				"required": ["count"]
+			},
+			"is_favorite": {
+				"type": "boolean"
+			},
+			"copyright": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer"
+					},
+					"link": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": ["id", "link", "name", "type"]
+			},
+			"copy_history": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "integer"
+						},
+						"owner_id": {
+							"type": "integer"
+						},
+						"from_id": {
+							"type": "integer"
+						},
+						"date": {
+							"type": "integer"
+						},
+						"post_type": {
+							"type": "string"
+						},
+						"text": {
+							"type": "string"
+						},
+						"attachments": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"type": {
+										"type": "string"
+									},
+									"photo": {
+										"type": "object",
+										"properties": {
+											"album_id": {
+												"type": "integer"
+											},
+											"date": {
+												"type": "integer"
+											},
+											"id": {
+												"type": "integer"
+											},
+											"owner_id": {
+												"type": "integer"
+											},
+											"has_tags": {
+												"type": "boolean"
+											},
+											"access_key": {
+												"type": "string"
+											},
+											"post_id": {
+												"type": "integer"
+											},
+											"sizes": {
+												"type": "array",
+												"items": {
+													"type": "object",
+													"properties": {
+														"height": {
+															"type": "integer"
+														},
+														"url": {
+															"type": "string"
+														},
+														"type": {
+															"type": "string"
+														},
+														"width": {
+															"type": "integer"
+														}
+													},
+													"required": ["height", "type", "url", "width"]
+												}
+											},
+											"text": {
+												"type": "string"
+											},
+											"user_id": {
+												"type": "integer"
+											},
+											"lat": {
+												"type": "number"
+											},
+											"long": {
+												"type": "number"
+											}
+										},
+										"required": ["album_id", "date", "has_tags", "id", "owner_id", "sizes", "text"]
+									},
+									"video": {
+										"type": "object",
+										"properties": {
+											"access_key": {
+												"type": "string"
+											},
+											"can_comment": {
+												"type": "integer"
+											},
+											"can_like": {
+												"type": "integer"
+											},
+											"can_repost": {
+												"type": "integer"
+											},
+											"can_subscribe": {
+												"type": "integer"
+											},
+											"can_add_to_faves": {
+												"type": "integer"
+											},
+											"can_add": {
+												"type": "integer"
+											},
+											"date": {
+												"type": "integer"
+											},
+											"duration": {
+												"type": "integer"
+											},
+											"photo_130": {
+												"type": "string"
+											},
+											"photo_320": {
+												"type": "string"
+											},
+											"photo_800": {
+												"type": "string"
+											},
+											"id": {
+												"type": "integer"
+											},
+											"owner_id": {
+												"type": "integer"
+											},
+											"title": {
+												"type": "string"
+											},
+											"is_favorite": {
+												"type": "boolean"
+											},
+											"restriction": {
+												"type": "object",
+												"properties": {
+													"title": {
+														"type": "string"
+													},
+													"text": {
+														"type": "string"
+													},
+													"always_shown": {
+														"type": "integer"
+													},
+													"blur": {
+														"type": "integer"
+													},
+													"can_play": {
+														"type": "integer"
+													},
+													"can_preview": {
+														"type": "integer"
+													},
+													"card_icon": {
+														"type": "array",
+														"items": {
+															"type": "object",
+															"properties": {
+																"height": {
+																	"type": "integer"
+																},
+																"url": {
+																	"type": "string"
+																},
+																"width": {
+																	"type": "integer"
+																}
+															},
+															"required": ["height", "url", "width"]
+														}
+													},
+													"list_icon": {
+														"type": "array",
+														"items": {
+															"type": "object",
+															"properties": {
+																"height": {
+																	"type": "integer"
+																},
+																"url": {
+																	"type": "string"
+																},
+																"width": {
+																	"type": "integer"
+																}
+															},
+															"required": ["height", "url", "width"]
+														}
+													}
+												},
+												"required": ["always_shown", "blur", "can_play", "can_preview", "card_icon", "list_icon", "text", "title"]
+											},
+											"track_code": {
+												"type": "string"
+											},
+											"views": {
+												"type": "integer"
+											},
+											"content_restricted": {
+												"type": "integer"
+											},
+											"platform": {
+												"type": "string"
+											},
+											"width": {
+												"type": "integer"
+											},
+											"height": {
+												"type": "integer"
+											},
+											"description": {
+												"type": "string"
+											},
+											"photo_640": {
+												"type": "string"
+											},
+											"comments": {
+												"type": "integer"
+											},
+											"local_views": {
+												"type": "integer"
+											},
+											"album_id": {
+												"type": "integer"
+											},
+											"photo_1280": {
+												"type": "string"
+											},
+											"first_frame_130": {
+												"type": "string"
+											},
+											"first_frame_160": {
+												"type": "string"
+											},
+											"first_frame_320": {
+												"type": "string"
+											},
+											"first_frame_800": {
+												"type": "string"
+											},
+											"first_frame_1280": {
+												"type": "string"
+											},
+											"repeat": {
+												"type": "integer"
+											},
+											"ov_id": {
+												"type": "string"
+											}
+										},
+										"required": ["access_key", "can_add", "can_add_to_faves", "can_comment", "can_like", "can_repost", "can_subscribe", "date", "duration", "id", "is_favorite", "owner_id", "photo_130", "photo_320", "title", "track_code", "views"]
+									},
+									"link": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string"
+											},
+											"title": {
+												"type": "string"
+											},
+											"description": {
+												"type": "string"
+											},
+											"target": {
+												"type": "string"
+											},
+											"photo": {
+												"type": "object",
+												"properties": {
+													"album_id": {
+														"type": "integer"
+													},
+													"date": {
+														"type": "integer"
+													},
+													"id": {
+														"type": "integer"
+													},
+													"owner_id": {
+														"type": "integer"
+													},
+													"has_tags": {
+														"type": "boolean"
+													},
+													"sizes": {
+														"type": "array",
+														"items": {
+															"type": "object",
+															"properties": {
+																"height": {
+																	"type": "integer"
+																},
+																"url": {
+																	"type": "string"
+																},
+																"type": {
+																	"type": "string"
+																},
+																"width": {
+																	"type": "integer"
+																}
+															},
+															"required": ["height", "type", "url", "width"]
+														}
+													},
+													"text": {
+														"type": "string"
+													},
+													"user_id": {
+														"type": "integer"
+													}
+												},
+												"required": ["album_id", "date", "has_tags", "id", "owner_id", "sizes", "text", "user_id"]
+											},
+											"is_favorite": {
+												"type": "boolean"
+											},
+											"caption": {
+												"type": "string"
+											},
+											"button_text": {
+												"type": "string"
+											},
+											"button_action": {
+												"type": "string"
+											}
+										},
+										"required": ["description", "title", "url"]
+									},
+									"page": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "integer"
+											},
+											"group_id": {
+												"type": "integer"
+											},
+											"title": {
+												"type": "string"
+											},
+											"who_can_view": {
+												"type": "integer"
+											},
+											"who_can_edit": {
+												"type": "integer"
+											},
+											"edited": {
+												"type": "integer"
+											},
+											"created": {
+												"type": "integer"
+											},
+											"views": {
+												"type": "integer"
+											},
+											"view_url": {
+												"type": "string"
+											}
+										},
+										"required": ["created", "edited", "group_id", "id", "title", "view_url", "views", "who_can_edit", "who_can_view"]
+									},
+									"poll": {
+										"type": "object",
+										"properties": {
+											"anonymous": {
+												"type": "boolean"
+											},
+											"multiple": {
+												"type": "boolean"
+											},
+											"end_date": {
+												"type": "integer"
+											},
+											"closed": {
+												"type": "boolean"
+											},
+											"is_board": {
+												"type": "boolean"
+											},
+											"can_edit": {
+												"type": "boolean"
+											},
+											"can_vote": {
+												"type": "boolean"
+											},
+											"can_report": {
+												"type": "boolean"
+											},
+											"can_share": {
+												"type": "boolean"
+											},
+											"created": {
+												"type": "integer"
+											},
+											"id": {
+												"type": "integer"
+											},
+											"owner_id": {
+												"type": "integer"
+											},
+											"question": {
+												"type": "string"
+											},
+											"votes": {
+												"type": "integer"
+											},
+											"disable_unvote": {
+												"type": "boolean"
+											},
+											"friends": {
+												"type": "array",
+												"items": {
+													"type": "object",
+													"properties": {
+														"id": {
+															"type": "integer"
+														}
+													},
+													"required": ["id"]
+												}
+											},
+											"answer_ids": {
+												"type": "array"
+											},
+											"answers": {
+												"type": "array",
+												"items": {
+													"type": "object",
+													"properties": {
+														"id": {
+															"type": "integer"
+														},
+														"rate": {
+															"type": "number"
+														},
+														"text": {
+															"type": "string"
+														},
+														"votes": {
+															"type": "integer"
+														}
+													},
+													"required": ["id", "rate", "text", "votes"]
+												}
+											}
+										},
+										"required": ["anonymous", "answer_ids", "answers", "can_edit", "can_report", "can_share", "can_vote", "closed", "created", "disable_unvote", "end_date", "id", "is_board", "multiple", "owner_id", "question", "votes"]
+									},
+									"audio": {
+										"type": "object",
+										"properties": {
+											"artist": {
+												"type": "string"
+											},
+											"id": {
+												"type": "integer"
+											},
+											"owner_id": {
+												"type": "integer"
+											},
+											"title": {
+												"type": "string"
+											},
+											"duration": {
+												"type": "integer"
+											},
+											"is_explicit": {
+												"type": "boolean"
+											},
+											"url": {
+												"type": "string"
+											},
+											"date": {
+												"type": "integer"
+											},
+											"genre_id": {
+												"type": "integer"
+											},
+											"is_hq": {
+												"type": "boolean"
+											},
+											"short_videos_allowed": {
+												"type": "boolean"
+											},
+											"stories_allowed": {
+												"type": "boolean"
+											},
+											"stories_cover_allowed": {
+												"type": "boolean"
+											},
+											"lyrics_id": {
+												"type": "integer"
+											},
+											"content_restricted": {
+												"type": "integer"
+											},
+											"album_id": {
+												"type": "integer"
+											},
+											"no_search": {
+												"type": "integer"
+											}
+										},
+										"required": ["artist", "date", "duration", "id", "is_explicit", "is_hq", "owner_id", "short_videos_allowed", "stories_allowed", "stories_cover_allowed", "title", "url"]
+									},
+									"doc": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "integer"
+											},
+											"owner_id": {
+												"type": "integer"
+											},
+											"title": {
+												"type": "string"
+											},
+											"size": {
+												"type": "integer"
+											},
+											"ext": {
+												"type": "string"
+											},
+											"date": {
+												"type": "integer"
+											},
+											"type": {
+												"type": "integer"
+											},
+											"url": {
+												"type": "string"
+											},
+											"access_key": {
+												"type": "string"
+											},
+											"preview": {
+												"type": "object",
+												"properties": {
+													"photo": {
+														"type": "object",
+														"properties": {
+															"sizes": {
+																"type": "array",
+																"items": {
+																	"type": "object",
+																	"properties": {
+																		"src": {
+																			"type": "string"
+																		},
+																		"width": {
+																			"type": "integer"
+																		},
+																		"height": {
+																			"type": "integer"
+																		},
+																		"type": {
+																			"type": "string"
+																		}
+																	},
+																	"required": ["height", "src", "type", "width"]
+																}
+															}
+														},
+														"required": ["sizes"]
+													},
+													"video": {
+														"type": "object",
+														"properties": {
+															"src": {
+																"type": "string"
+															},
+															"width": {
+																"type": "integer"
+															},
+															"height": {
+																"type": "integer"
+															},
+															"file_size": {
+																"type": "integer"
+															}
+														},
+														"required": ["file_size", "height", "src", "width"]
+													}
+												},
+												"required": ["photo", "video"]
+											}
+										},
+										"required": ["access_key", "date", "ext", "id", "owner_id", "size", "title", "type", "url"]
+									},
+									"note": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "integer"
+											},
+											"owner_id": {
+												"type": "integer"
+											},
+											"comments": {
+												"type": "integer"
+											},
+											"read_comments": {
+												"type": "integer"
+											},
+											"date": {
+												"type": "integer"
+											},
+											"title": {
+												"type": "string"
+											},
+											"view_url": {
+												"type": "string"
+											}
+										},
+										"required": ["comments", "date", "id", "owner_id", "read_comments", "title", "view_url"]
+									},
+									"album": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"thumb": {
+												"type": "object",
+												"properties": {
+													"album_id": {
+														"type": "integer"
+													},
+													"date": {
+														"type": "integer"
+													},
+													"id": {
+														"type": "integer"
+													},
+													"owner_id": {
+														"type": "integer"
+													},
+													"has_tags": {
+														"type": "boolean"
+													},
+													"sizes": {
+														"type": "array"
+													},
+													"text": {
+														"type": "string"
+													}
+												},
+												"required": ["album_id", "date", "has_tags", "id", "owner_id", "sizes", "text"]
+											},
+											"owner_id": {
+												"type": "integer"
+											},
+											"title": {
+												"type": "string"
+											},
+											"description": {
+												"type": "string"
+											},
+											"created": {
+												"type": "integer"
+											},
+											"updated": {
+												"type": "integer"
+											},
+											"size": {
+												"type": "integer"
+											}
+										},
+										"required": ["created", "description", "id", "owner_id", "size", "thumb", "title", "updated"]
+									}
+								},
+								"required": ["type"]
+							}
+						},
+						"post_source": {
+							"type": "object",
+							"properties": {
+								"type": {
+									"type": "string"
+								},
+								"platform": {
+									"type": "string"
+								},
+								"url": {
+									"type": "string"
+								},
+								"data": {
+									"type": "string"
+								}
+							},
+							"required": ["type"]
+						},
+						"signer_id": {
+							"type": "integer"
+						},
+						"reply_post_id": {
+							"type": "integer"
+						},
+						"parents_stack": {
+							"type": "array"
+						}
+					},
+					"required": ["date", "from_id", "id", "owner_id", "post_source", "post_type", "text"]
+				}
+			},
+			"signer_id": {
+				"type": "integer"
+			},
+			"is_pinned": {
+				"type": "integer"
+			}
+		},
+		"required": ["comments", "date", "from_id", "id", "is_favorite", "likes", "marked_as_ads", "owner_id", "post_source", "post_type", "reposts", "text"]
+	}
+}

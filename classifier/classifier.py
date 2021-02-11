@@ -29,6 +29,9 @@ class Classifier:
     def status(self) -> dict:
         return {}
 
+    def resolve_group(self, name: str) -> int:
+        pass
+
     @property
     def nn(self):
         return None
