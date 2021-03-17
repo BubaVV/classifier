@@ -1,17 +1,29 @@
-from pathlib import Path
+import argparse
+from pathlib import Path, PurePath
 from typing import Dict, Optional
 
+from models_slim import Base, Post, Source, Token
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from classifier.models_slim import Base, Post, Source, Token
-
 Sources = Optional[Dict[str, str]]
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--db", help="path to db", default="classifier.db")
+parser.add_argument("--from-json", help="fill db from provided json file", default="")
+parser.add_argument("--to-json", help="fill data to provided json file", default="")
+parser.add_argument(
+    "action",
+    help="fill, train, classify or status",
+    nargs=1,
+    choices=("fill", "train", "classify", "status"),
+)
 
 
 class Classifier:
     def __init__(self, db: Path) -> None:
-        engine = create_engine("sqlite://{}".format(db))
+        db_path = "sqlite:///" + db
+        engine = create_engine(db_path)
         Session = sessionmaker()
         Session.configure(bind=engine)
         self.db = Session()
@@ -57,3 +69,8 @@ class Classifier:
             self.db.commit()
         except:
             self.db.rollback()
+
+
+if __name__ == "__main__":
+    args = parser.parse_args()
+    classifier = Classifier(args.db)

@@ -1,26 +1,28 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
-from classifier.utils import detect_lang, process_text
+from utils import detect_lang, process_text
 
 Base = declarative_base()
 
+
 def extract_text(post: dict) -> str:
-    result = [post['text']]
-    if 'attachments' in post:
-        for attach in post['attachments']:
-            if attach['type'] == 'poll':
-                result.append(attach['poll']['question'])
+    result = [post["text"]]
+    if "attachments" in post:
+        for attach in post["attachments"]:
+            if attach["type"] == "poll":
+                result.append(attach["poll"]["question"])
                 continue
-            if attach['type'] in ['doc', 'page', 'link']:
-                result.append(attach[attach['type']]['title'])
-            if attach['type'] == 'link':
-                result.append(attach['link']['description'])
+            if attach["type"] in ["doc", "page", "link"]:
+                result.append(attach[attach["type"]]["title"])
+            if attach["type"] == "link":
+                result.append(attach["link"]["description"])
 
-    if 'copy_history' in post:
-        result.extend([extract_text(repost) for repost in post['copy_history']])
+    if "copy_history" in post:
+        result.extend([extract_text(repost) for repost in post["copy_history"]])
 
-    return ' '.join(result)
+    return " ".join(result)
+
 
 class Post(Base):
     __tablename__ = "corpus"
@@ -65,7 +67,7 @@ class Groups(Base):
     def __init__(self, args: dict):
         self.id_ = args["id"]
         self.name = args["name"]
-    
+
     def to_dict(self):
         return {"id": self.id_, "name": self.name}
 
