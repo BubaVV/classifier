@@ -37,16 +37,6 @@ class Post(Base):
         self.text = extract_text(post)
         self.lang = detect_lang(self.text)
 
-
-class Token(Base):
-    __tablename__ = "tokens"
-
-    def __init__(self, token: str):
-        self.token = token
-
-    token = Column(String(), primary_key=True)
-
-
 class Source(Base):
     __tablename__ = "sources"
 
