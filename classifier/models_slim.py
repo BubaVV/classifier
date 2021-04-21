@@ -27,7 +27,7 @@ def extract_text(post: dict) -> str:
 class Post(Base):
     __tablename__ = "corpus"
     id = Column(Integer, primary_key=True)
-    owner_id = Column(Integer, ForeignKey('source.id_'), primary_key=True)
+    owner_id = Column(Integer, ForeignKey('sources.id_'), primary_key=True)
     text = Column(String())
     lang = Column(String())
 

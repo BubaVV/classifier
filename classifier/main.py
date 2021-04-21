@@ -11,10 +11,13 @@ from utils import download_all
 Sources = Optional[Dict[str, str]]
 
 parser = argparse.ArgumentParser()
+json_arg = parser.add_mutually_exclusive_group()
+json_arg.add_argument("--from-json", help="fill db from provided json file", default="")
+json_arg.add_argument("--to-json", help="fill data to provided json file", default="")
+
 parser.add_argument("--db", help="path to db", default="classifier.db")
+parser.add_argument("--sources", help="path to list of data sources", default="corpus_groups.txt")
 parser.add_argument("--tokens", help="path to tokens file", default="tokens.txt")
-parser.add_argument("--from-json", help="fill db from provided json file", default="")
-parser.add_argument("--to-json", help="fill data to provided json file", default="")
 parser.add_argument(
     "action",
     help="fill, train, classify or status",
@@ -34,16 +37,31 @@ class Classifier:
         Base.metadata.create_all(self._engine)
         with open(self._args.tokens) as f:
             self._tokens = f.readlines()
+        with open(self._args.sources) as f:
+            self.sources = [line.strip().split() for line in f.readlines()]
 
     def fill(self) -> None:
-        if not self._args.from_json:
-            data = download_all(self.tokens[0], self.groups) # TODO add multithread
-        else:
+        if self._args.from_json:
             with open(self._args.from_json) as f:
                 data = json.load(f)
-        Base.metadata.drop_all(bind=self._engine, tables=[Post.__table__])
-        Base.metadata.drop_all(bind=self._engine, tables=[Post.__table__])
-        self.db.add_all((Post(record) for record in data if record["text"]))
+            self.sources =[[source['domain'], source['class']] for source in data['sources']]
+        else:
+            data = download_all(self.tokens[0],
+                                self.sources)  # TODO add multithread
+
+        if self._args.to_json:
+            with open(self._args.to_json, 'w') as f:
+                json.dump(data, f)
+            return
+
+        Base.metadata.drop_all(self._engine)
+        Base.metadata.create_all(self._engine)
+        self.db.add_all((Source(record) for record in data['sources']))
+        for record in data['posts']:
+            if not record["text"]:
+                continue
+            # duplicates are possible, so add() is not an option
+            self.db.merge(Post(record))
         self.db.commit()
 
     def train(self) -> dict:
@@ -57,6 +75,10 @@ class Classifier:
         classes = self.db.query(Source.class_).distinct().all()
         result = {'classes': classes}
         return result
+    
+    def validate(selfself) -> dict:
+        # validates token, sources, etc.
+        pass
 
     @property
     def nn(self):
@@ -66,10 +88,10 @@ class Classifier:
     def tokens(self) -> List[str]:
         return self._tokens
 
-    @property
-    def sources(self) -> Sources:
-        sources = self.db.query(Source).all()
-        return {x.source: x.class_ for x in sources}
+    # @property
+    # def sources(self) -> Sources:
+    #     sources = self.db.query(Source).all()
+    #     return {x.source: x.class_ for x in sources}
 
     # @sources.setter
     # def sources(self, sources: Sources) -> None:

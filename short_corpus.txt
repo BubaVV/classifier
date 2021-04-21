@@ -1,0 +1,3 @@
+islamhuda	religion
+in.kino	film
+indie_music	music

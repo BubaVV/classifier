@@ -30,14 +30,6 @@ def process_text(text: str) -> str:
                 result = ' '.join([result, wrd.normal_form])
     return result
 
-def download_posts(token: str, source_id: int) -> list:
-    vk_session = vk_api.VkApi(token=token)
-    tools = vk_api.VkTools(vk_session)
-    wall = tools.get_all('wall.get', 2500, {'owner_id': source_id})
-    result = []
-    for post in wall["items"]:
-        result.append({k : post[k] for k in ['text', 'owner_id', 'id']})
-    return result
 
 def resolve_source(token: str, domain: int) -> dict:
     vk_session = vk_api.VkApi(token=token)
@@ -70,29 +62,28 @@ def download_all(token: str, sources: List[List]) -> dict:
         resolved_sources.append(resolved_source)
 
     posts = []
+    failed_sources = []
     for source in resolved_sources:
-        group_id = source['id']
+        source_id = source['id']
         try:
-            wall = tools.get_all('wall.get', 100, {'owner_id': group_id})
+            print(source_id)
+            wall = tools.get_all('wall.get', 40, {'owner_id': source_id},
+                                 limit=1000)
         except Exception as e:
             print(e)
-            print(group_id)
+            failed_sources.append(source_id)
+            continue
+        posts.extend(wall['items'])
+    print('Falling back to slow download')
+
+    for source_id in failed_sources:
+        try:
+            print(source_id)
+            wall = tools.get_all_slow('wall.get', 100, {'owner_id': source_id},
+                                      limit=1000)  # TODO manage hardcoded limit
+        except Exception as e:
+            print('Slow download failed')
+            print(e)
             continue
         posts.extend(wall['items'])
     return {'sources': resolved_sources, 'posts': posts}
-
-token = 'token'
-vk_session = vk_api.VkApi(token=token, api_version='5.130')
-vk = vk_session.get_api()
-tools = vk_api.VkTools(vk_session)
-group_id = -1980
-wall = tools.get_all('wall.get', 100, {'owner_id': group_id})
-# Get error 500
-piece_of_wall = vk.wall.get(owner_id=group_id)
-# piece_of_wall contains 100 posts
-
-group_id = -40747355
-wall = tools.get_all('wall.get', 100, {'owner_id': group_id})
-# Get "Can't load items. Check access to requested items"
-piece_of_wall = vk.wall.get(owner_id=group_id)
-# piece_of_wall contains 100 posts
