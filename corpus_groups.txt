@@ -51,12 +51,8 @@ spamazon	shopping
 sovmestnaya_pokupka_opt	shopping
 spvsepokarmanu	shopping
 1sp.ukraine	shopping
-mother_care	shopping
-poisk_official_ua	shopping
 mvgtaobao	shopping
 ladysklub	shopping
-viruskoronaviruskorona	covid
-coronavirus67	covid
 stopcoronavirusrf	covid
 covid2019_official	covid
 covid_murman	covid

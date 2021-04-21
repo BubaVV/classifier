@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 
 from utils import detect_lang, process_text
@@ -27,7 +27,7 @@ def extract_text(post: dict) -> str:
 class Post(Base):
     __tablename__ = "corpus"
     id = Column(Integer, primary_key=True)
-    owner_id = Column(Integer, primary_key=True)
+    owner_id = Column(Integer, ForeignKey('source.id_'), primary_key=True)
     text = Column(String())
     lang = Column(String())
 
@@ -41,25 +41,13 @@ class Source(Base):
     __tablename__ = "sources"
 
     def __init__(self, args: dict):
-        self.domain = args["domain"]
+        self.id_ = args["id"]  # negative for groups
+        self.domain = args["domain"]  # vk.com/domain as shortcut to number id
         self.class_ = args["class"]
 
     def to_dict(self):
-        return {"domain": self.domain, "class": self.class_}
+        return {"domain": self.domain, "class": self.class_, "id": self.id_}
 
+    id_ = Column(Integer, primary_key=True)
     domain = Column(String(), primary_key=True)
     class_ = Column(String())
-
-
-class Groups(Base):
-    __tablename__ = "groups"
-
-    def __init__(self, args: dict):
-        self.id_ = args["id"]
-        self.name = args["name"]
-
-    def to_dict(self):
-        return {"id": self.id_, "name": self.name}
-
-    id_ = Column(Integer, primary_key=True)  # assume to be negative for groups
-    name = Column(String(), primary_key=True)

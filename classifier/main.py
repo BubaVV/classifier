@@ -53,10 +53,10 @@ class Classifier:
         return {}
 
     def status(self) -> dict:
-        return {}
-
-    def resolve_group(self, name: str) -> int:
-        pass
+        # TODO add some integrity checks here
+        classes = self.db.query(Source.class_).distinct().all()
+        result = {'classes': classes}
+        return result
 
     @property
     def nn(self):
@@ -71,18 +71,18 @@ class Classifier:
         sources = self.db.query(Source).all()
         return {x.source: x.class_ for x in sources}
 
-    @sources.setter
-    def sources(self, sources: Sources) -> None:
-        if sources:
-            for source, class_ in sources.items():
-                record = Source(source, class_)
-                self.db.merge(record)
-        else:
-            self.db.query(Source).delete()
-        try:
-            self.db.commit()
-        except:
-            self.db.rollback()
+    # @sources.setter
+    # def sources(self, sources: Sources) -> None:
+    #     if sources:
+    #         for source, class_ in sources.items():
+    #             record = Source(source, class_)
+    #             self.db.merge(record)
+    #     else:
+    #         self.db.query(Source).delete()
+    #     try:
+    #         self.db.commit()
+    #     except:
+    #         self.db.rollback()
 
 
 if __name__ == "__main__":
@@ -90,3 +90,6 @@ if __name__ == "__main__":
     classifier = Classifier(args)
     if "fill" in args.action:
         classifier.fill()
+    if "status" in args.action:
+        status = classifier.status()
+        print(status)
