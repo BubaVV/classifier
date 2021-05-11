@@ -1,0 +1,3 @@
+vse_dlya_hozyaek	food
+in.kino	film
+indie_music	music
