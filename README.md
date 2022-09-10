@@ -23,3 +23,7 @@ Use any VPN service. In Ubuntu, use such commands to redirect VK traffic to VPN:
 `corpus_groups.txt` - about 60 groups and 7 classes, quite ready for production usage
 
 ## Training pipeline
+
+Included `db_tiny.json` as sample dataset. It includes 3 classes of text: films, 
+music and food. Demo script `e2e.py` trains network on it for a few minutes and 
+classsify several texts from test set as example. 

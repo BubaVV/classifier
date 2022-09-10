@@ -3,10 +3,10 @@ import json
 from pathlib import Path, PurePath
 from typing import Dict, List, Optional
 
-from models_slim import Base, Post, Source
+from classifier.models_slim import Base, Post, Source
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from utils import download_all
+from classifier.utils import download_all
 
 Sources = Optional[Dict[str, str]]
 
@@ -27,30 +27,32 @@ parser.add_argument(
 
 
 class Classifier:
-    def __init__(self, args) -> None:
-        self._args = args
-        db_path = "sqlite:///" + self._args.db
+    def __init__(self, **kwargs) -> None:
+        self._args = kwargs
+        db_path = "sqlite:///" + self._args['db']
         self._engine = create_engine(db_path)
         Session = sessionmaker()
         Session.configure(bind=self._engine)
         self.db = Session()
         Base.metadata.create_all(self._engine)
-        with open(self._args.tokens) as f:
-            self._tokens = f.readlines()
-        with open(self._args.sources) as f:
-            self.sources = [line.strip().split() for line in f.readlines()]
+        if 'tokens' in self._args:
+            with open(self._args['tokens']) as f:
+                self._tokens = f.readlines()
+        if 'sources' in self._args:
+            with open(self._args['sources']) as f:
+                self.sources = [line.strip().split() for line in f.readlines()]
 
     def fill(self) -> None:
-        if self._args.from_json:
-            with open(self._args.from_json) as f:
+        if 'from_json' in self._args:
+            with open(self._args['from_json']) as f:
                 data = json.load(f)
             self.sources =[[source['domain'], source['class']] for source in data['sources']]
         else:
             data = download_all(self.tokens[0],
                                 self.sources)  # TODO add multithread
 
-        if self._args.to_json:
-            with open(self._args.to_json, 'w') as f:
+        if 'to_json' in self._args:
+            with open(self._args['to_json'], 'w') as f:
                 json.dump(data, f)
             return
 
@@ -73,7 +75,7 @@ class Classifier:
     def status(self) -> dict:
         # TODO add some integrity checks here
         classes = self.db.query(Source.class_).distinct().all()
-        result = {'classes': classes}
+        result = {'classes': [x[0] for x in classes]}
         return result
     
     def validate(selfself) -> dict:
@@ -109,7 +111,7 @@ class Classifier:
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    classifier = Classifier(args)
+    classifier = Classifier(vars(args))
     if "fill" in args.action:
         classifier.fill()
     if "status" in args.action:

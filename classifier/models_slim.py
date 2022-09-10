@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 
-from utils import detect_lang, process_text
+from classifier.utils import detect_lang
 
 Base = declarative_base()
 
