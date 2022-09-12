@@ -1,4 +1,9 @@
 # type: ignore
+# pylint: skip-file
+
+# More extensive DB schema for VK posts. Currently not used in project, kept as
+# some reference
+
 import datetime
 import enum
 from collections import defaultdict

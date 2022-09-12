@@ -39,7 +39,6 @@ class NN:  # TODO: do base class and implement Keras also
 
     def train(self, text: List[str], target: List):
         x = np.asarray(self.vectorize(text).todense())
-        y = np.array(target)
         self._nn.partial_fit(x, target, self.classes)
 
     def infer(self, text: List[str]) -> List:

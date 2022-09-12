@@ -1,11 +1,11 @@
 import argparse
 import json
-from pathlib import Path, PurePath
 from typing import Dict, List, Optional
 
-from classifier.models_slim import Base, Post, Source
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
+from classifier.models_slim import Base, Post, Source
 from classifier.utils import download_all
 
 Sources = Optional[Dict[str, str]]
@@ -16,7 +16,7 @@ json_arg.add_argument("--from-json", help="fill db from provided json file", def
 json_arg.add_argument("--to-json", help="fill data to provided json file", default="")
 
 parser.add_argument("--db", help="path to db", default="classifier.db")
-parser.add_argument("--sources", help="path to list of data sources", default="corpus_groups.txt")
+parser.add_argument("--sources", help="path to list of data sources", default="corpus_prod.txt")
 parser.add_argument("--tokens", help="path to tokens file", default="tokens.txt")
 parser.add_argument(
     "action",
@@ -77,8 +77,8 @@ class Classifier:
         classes = self.db.query(Source.class_).distinct().all()
         result = {'classes': [x[0] for x in classes]}
         return result
-    
-    def validate(selfself) -> dict:
+
+    def validate(self) -> dict:
         # validates token, sources, etc.
         pass
 
@@ -111,7 +111,7 @@ class Classifier:
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    classifier = Classifier(vars(args))
+    classifier = Classifier(**vars(args))
     if "fill" in args.action:
         classifier.fill()
     if "status" in args.action:

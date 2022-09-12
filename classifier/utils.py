@@ -1,5 +1,4 @@
 import re
-from itertools import cycle
 from typing import Generator, List, Tuple
 
 import numpy as np
@@ -7,26 +6,24 @@ import pycld2 as cld2
 import pymorphy2
 import vk_api
 from sklearn.feature_extraction.text import HashingVectorizer
+from vk_api.exceptions import VkApiError
 
 from classifier.settings import DIFF_WORDS
 
 morph = pymorphy2.MorphAnalyzer()
-punctuation = re.compile("[^\w\s]")
+punctuation = re.compile(r"[^\w\s]")
 
 
 def detect_lang(text: str) -> str:
-    isReliable, textBytesFound, details = cld2.detect(text)
-    if isReliable:
-        return details[0][1]
-    else:
-        return ""
+    isReliable, _, details = cld2.detect(text)
+    return details[0][1] if isReliable else ""
 
 
 def process_text(text: str) -> List[str]:
     content = text
     content = content.replace("\n", " ")
     content = punctuation.sub(" ", content).strip()
-    splitted_content = re.split("\s+", content)
+    splitted_content = re.split(r"\s+", content)
     result = []
     for word in splitted_content:
         m = morph.parse(word)
@@ -55,7 +52,6 @@ def resolve_source(token: str, domain: int) -> dict:
 
 def download_all(token: str, sources: List[List]) -> dict:
     vk_session = vk_api.VkApi(token=token)
-    vk = vk_session.get_api()
     tools = vk_api.VkTools(vk_session)
     resolved_sources = []
     for source in sources:
@@ -74,7 +70,7 @@ def download_all(token: str, sources: List[List]) -> dict:
         try:
             print(source_id)
             wall = tools.get_all("wall.get", 40, {"owner_id": source_id}, limit=1000)
-        except Exception as e:
+        except VkApiError as e:
             print(e)
             failed_sources.append(source_id)
             continue
@@ -87,7 +83,7 @@ def download_all(token: str, sources: List[List]) -> dict:
             wall = tools.get_all_slow(
                 "wall.get", 100, {"owner_id": source_id}, limit=1000
             )  # TODO manage hardcoded limit
-        except Exception as e:
+        except VkApiError as e:
             print("Slow download failed")
             print(e)
             continue
@@ -120,18 +116,3 @@ def batch_gen(
             # should transform it only for separate batches
             yield transformed_result
             result = ([], [])
-
-
-def cyclic_gen_nobatch(
-    source: Generator[str, None, None]
-) -> Generator[str, None, None]:
-    """
-    Convert plain generator to cyclic
-    :param source:
-    :return:
-    """
-    # cycle('ABCD') --> A B C D A B C D
-    cycle_source = cycle(source)
-    while True:
-        sample = next(cycle_source)
-        yield sample
