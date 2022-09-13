@@ -1,14 +1,11 @@
 import re
-from typing import Generator, List, Tuple
+from typing import List
 
-import numpy as np
 import pycld2 as cld2
 import pymorphy2
 import vk_api
-from sklearn.feature_extraction.text import HashingVectorizer
 from vk_api.exceptions import VkApiError
 
-from classifier.settings import DIFF_WORDS
 
 morph = pymorphy2.MorphAnalyzer()
 punctuation = re.compile(r"[^\w\s]")
@@ -65,8 +62,8 @@ def download_all(token: str, sources: List[List]) -> dict:
 
     posts = []
     failed_sources = []
-    for source in resolved_sources:
-        source_id = source["id"]
+    for resolved_source in resolved_sources:
+        source_id = resolved_source["id"]
         try:
             print(source_id)
             wall = tools.get_all("wall.get", 40, {"owner_id": source_id}, limit=1000)
@@ -89,30 +86,3 @@ def download_all(token: str, sources: List[List]) -> dict:
             continue
         posts.extend(wall["items"])
     return {"sources": resolved_sources, "posts": posts}
-
-
-def batch_gen(
-    source: list, size: int
-) -> Generator[Tuple[np.array, np.array], None, None]:
-    """
-    Group input samples of text to batches and vectorize it to proper format
-    :param source: Should be cyclic generator
-    :param size: batch size
-    :return: list of tuples (input vector, one-hot class vector)
-    """
-    vectorizer = HashingVectorizer(
-        decode_error="ignore", n_features=DIFF_WORDS, alternate_sign=False
-    )
-    result = ([], [])
-    for sample in source:
-        result[0].append(sample[0])
-        result[1].append(sample[1])
-        if len(result[0]) >= size:
-            transformed_result = (
-                np.array(vectorizer.transform(result[0]).todense()),
-                np.array(result[1]),
-            )
-            # Vectorizer output is sparse vector, but nn wants dense vector for output. Dense vectors are HUGE, so we
-            # should transform it only for separate batches
-            yield transformed_result
-            result = ([], [])

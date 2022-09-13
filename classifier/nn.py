@@ -3,10 +3,10 @@ from typing import List
 
 # import h5py
 import numpy as np
-
 # from keras.layers import Dense, Dropout
 # from keras.models import Sequential
 # from keras.utils import plot_model
+from scipy.sparse import csr_matrix
 from sklearn.feature_extraction.text import HashingVectorizer
 from sklearn.neural_network import MLPClassifier
 
@@ -34,7 +34,7 @@ class NN:  # TODO: do base class and implement Keras also
         with open(fname, "rb") as f:
             self._nn = pickle.load(f)
 
-    def vectorize(self, text: List[str]) -> List[List[int]]:  # TODO: do caching here
+    def vectorize(self, text: List[str]) -> csr_matrix:  # TODO: do caching here
         return self.vectorizer.transform(text)
 
     def train(self, text: List[str], target: List):

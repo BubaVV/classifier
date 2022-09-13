@@ -43,6 +43,8 @@ class Classifier:
                 self.sources = [line.strip().split() for line in f.readlines()]
 
     def fill(self) -> None:
+        # pylint: disable=E1101
+        # issue in linter related to sqlalchemy classes
         if 'from_json' in self._args:
             with open(self._args['from_json']) as f:
                 data = json.load(f)
@@ -67,12 +69,15 @@ class Classifier:
         self.db.commit()
 
     def train(self) -> dict:
+        # pylint: disable=R0201
         return {}
 
     def classify(self) -> dict:
+        # pylint: disable=R0201
         return {}
 
     def status(self) -> dict:
+        # pylint: disable=E1101
         # TODO add some integrity checks here
         classes = self.db.query(Source.class_).distinct().all()
         result = {'classes': [x[0] for x in classes]}
