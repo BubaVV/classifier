@@ -26,4 +26,10 @@ Use any VPN service. In Ubuntu, use such commands to redirect VK traffic to VPN:
 
 Included `db_tiny.json` as sample dataset. It includes 3 classes of text: films, 
 music and food. Demo script `e2e.py` trains network on it for a few minutes and 
-classsify several texts from test set as example. 
+classsify several texts from test set as example.
+
+## Streamlit
+
+Separate branch implementing [Streamlit](https://streamlit.io) application. 
+Assume it as relatively stable. Plan to merge here updates from master and
+update app to modified internal API, etc.
