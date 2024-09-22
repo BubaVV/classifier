@@ -3,7 +3,9 @@ from sqlalchemy.sql import func
 
 from classifier.main import Classifier
 from classifier.models_slim import Post, Source
-from classifier.nn import NN
+from classifier.sklearn import SklearnNN as NN
+
+# from classifier.pytorch import PytorchNN as NN
 
 classifier = Classifier(db="tiny.db", from_json="db_tiny.json")
 classifier.fill()

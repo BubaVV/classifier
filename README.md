@@ -26,4 +26,9 @@ Use any VPN service. In Ubuntu, use such commands to redirect VK traffic to VPN:
 
 Included `db_tiny.json` as sample dataset. It includes 3 classes of text: films, 
 music and food. Demo script `e2e.py` trains network on it for a few minutes and 
-classsify several texts from test set as example. 
+classsify several texts from test set as example.
+
+## Pytorch
+
+Implemented using additional reqs file - install it on top of the main one. `e2e.py`
+has commented out line to switch to Pytorch. It tries to use the first (or only) GPU.
