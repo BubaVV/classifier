@@ -1,57 +1,53 @@
-import pickle
+from abc import ABC, abstractmethod
 from typing import List
 
-# import h5py
-import numpy as np
-# from keras.layers import Dense, Dropout
-# from keras.models import Sequential
-# from keras.utils import plot_model
 from scipy.sparse import csr_matrix
 from sklearn.feature_extraction.text import HashingVectorizer
-from sklearn.neural_network import MLPClassifier
 
-from classifier.settings import DIFF_WORDS
 from classifier.utils import process_text
 
 
-class NN:  # TODO: do base class and implement Keras also
-    def __init__(self, classes: List[str], n_features=DIFF_WORDS):
-        super().__init__()
-        self._nn = MLPClassifier(hidden_layer_sizes=(50, 50))
+class BaseNN(ABC):
+    def __init__(self, classes: List[str], n_features: int):
         self.classes = classes
-        self.vectorizer = HashingVectorizer(
+        self.vectorizer = self.init_vectorizer(n_features)
+        self._nn = None
+        self.n_features = n_features
+
+    # pylint: disable=R0201
+    def init_vectorizer(self, n_features: int):
+        return HashingVectorizer(
             decode_error="ignore",
             n_features=n_features,
             alternate_sign=False,
             tokenizer=process_text,
         )
 
-    def save(self, fname):
-        with open(fname, "wb") as f:
-            pickle.dump(self._nn, f)
-
-    def load(self, fname):
-        with open(fname, "rb") as f:
-            self._nn = pickle.load(f)
-
-    def vectorize(self, text: List[str]) -> csr_matrix:  # TODO: do caching here
+    def vectorize(self, text: List[str]) -> csr_matrix:
         return self.vectorizer.transform(text)
 
+    @abstractmethod
     def train(self, text: List[str], target: List):
-        x = np.asarray(self.vectorize(text).todense())
-        self._nn.partial_fit(x, target, self.classes)
+        pass
 
+    @abstractmethod
     def infer(self, text: List[str]) -> List:
-        x = np.asarray(self.vectorize(text).todense())
-        result = self._nn.predict_proba(x).tolist()
-        return [list(zip(self.classes, x)) for x in result]
+        pass
 
+    @abstractmethod
     def score(self, text: List[str], target: List):
-        x = np.asarray(self.vectorize(text).todense())
-        y = np.array(target)
-        return self._nn.score(x, y)
+        pass
 
-    def drop(self):
+    @abstractmethod
+    def save(self, fname: str):
+        pass
+
+    @abstractmethod
+    def load(self, fname: str):
+        pass
+
+    def reset(self):
+        """ Reset the model, freeing resources """
         if hasattr(self, "_nn"):
             del self._nn
-            self.__init__(self.classes)
+            self.__init__(self.classes, self.n_features)
